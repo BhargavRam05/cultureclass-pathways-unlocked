@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Film, Music, Utensils, BookOpen, Lightbulb, Star, Brain } from 'lucide-react';
 
+
 const CultureClass = () => {
   const [formData, setFormData] = useState({
     movie: '',
@@ -11,29 +12,48 @@ const CultureClass = () => {
   });
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [generatedSteps, setGeneratedSteps] = useState<string>(""); // Raw GPT response
+
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoading(false);
-    setShowResults(true);
-    
-    // Smooth scroll to results
-    setTimeout(() => {
-      document.getElementById('resultsSection')?.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }, 100);
-  };
+  e.preventDefault();
+  setIsLoading(true);
+
+  try {
+    const response = await fetch("https://orange-dollop-q744jjxpj6g6265pr-5000.app.github.dev/generate-path", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await response.json();
+
+    if (data?.stepsText) {
+      setGeneratedSteps(data.stepsText);
+      setShowResults(true);
+    } else {
+      alert("No response from AI 😓");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong. Try again.");
+  }
+
+  setIsLoading(false);
+
+  setTimeout(() => {
+    document.getElementById("resultsSection")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 100);
+};
 
   const handleTryAgain = () => {
     setShowResults(false);
@@ -79,29 +99,6 @@ const CultureClass = () => {
       label: 'Learning Topic', 
       icon: Lightbulb, 
       placeholder: 'e.g., JavaScript, Photography...' 
-    }
-  ];
-
-  const learningSteps = [
-    {
-      title: "Introduction & Foundation",
-      content: `Start with the basics of ${formData.topic || 'your chosen topic'}, using examples and metaphors from ${formData.movie || 'your favorite films'} to make complex concepts more relatable and memorable.`
-    },
-    {
-      title: "Creative Exploration",
-      content: `Dive deeper through hands-on projects inspired by ${formData.artist || 'your music taste'}. The rhythm and creativity of music will guide your learning pace and style.`
-    },
-    {
-      title: "Cultural Context",
-      content: `Understand the broader implications by exploring how ${formData.topic || 'this topic'} connects to different cultures, similar to how ${formData.food || 'cuisine'} reflects cultural diversity and innovation.`
-    },
-    {
-      title: "Practical Application",
-      content: `Apply your knowledge through real-world scenarios, using storytelling techniques inspired by ${formData.book || 'literary works'} to structure and present your understanding.`
-    },
-    {
-      title: "Mastery & Sharing",
-      content: `Consolidate your learning by teaching others or creating something unique, combining all your cultural influences into a personal approach to ${formData.topic || 'the subject'}.`
     }
   ];
 
@@ -206,27 +203,36 @@ const CultureClass = () => {
               </div>
 
               <div className="space-y-6 mb-8">
-                {learningSteps.map((step, index) => (
-                  <div 
-                    key={index} 
-                    className="flex items-start space-x-4 p-6 bg-secondary/30 rounded-xl border border-border/50 hover:bg-secondary/50 transition-all duration-300"
-                    style={{ animationDelay: `${0.1 * index}s` }}
-                  >
-                    <div className="flex-shrink-0">
-                      <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
-                        <Star className="w-5 h-5 text-primary-foreground" />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold mb-2 text-foreground">
-                        Step {index + 1}: {step.title}
-                      </h4>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {step.content}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                {generatedSteps
+  .split(/\n(?=Step \d+:)/)
+  .map((step, index) => {
+    const [titleLine, ...contentLines] = step.split('\n');
+    const title = titleLine?.replace(/^Step \d+:\s*/, '').trim();
+    const content = contentLines.join(' ').trim();
+
+    return (
+      <div 
+        key={index} 
+        className="flex items-start space-x-4 p-6 bg-secondary/30 rounded-xl border border-border/50 hover:bg-secondary/50 transition-all duration-300"
+        style={{ animationDelay: `${0.1 * index}s` }}
+      >
+        <div className="flex-shrink-0">
+          <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
+            <Star className="w-5 h-5 text-primary-foreground" />
+          </div>
+        </div>
+        <div className="flex-1">
+          <h4 className="text-xl font-semibold mb-2 text-foreground">
+            Step {index + 1}: {title}
+          </h4>
+          <p className="text-muted-foreground leading-relaxed">
+            {content}
+          </p>
+        </div>
+      </div>
+    );
+  })}
+
               </div>
 
               <div className="text-center">
