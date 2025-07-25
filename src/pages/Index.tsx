@@ -24,7 +24,7 @@ const CultureClass = () => {
   setIsLoading(true);
 
   try {
-    const response = await fetch("https://orange-dollop-q744jjxpj6g6265pr-5000.app.github.dev/generate-path", {
+    const response = await fetch("https://cultureclass-backend.onrender.com/generate-path", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
