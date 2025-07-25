@@ -1,73 +1,117 @@
-# Welcome to your Lovable project
 
-## Project info
+## 🎓 CultureClass – Personalized Learning via Taste
 
-**URL**: https://lovable.dev/projects/cb189723-5b58-40be-b978-c66b4a3c95ec
+### 🚀 About the Project
 
-## How can I edit this code?
+**CultureClass** is an AI-powered web app that generates a personalized learning pathway based on your favorite **music, movies, books, or foods**. By fusing **Qloo’s Taste AI** with the power of a **Large Language Model**, it creates a learning experience that feels deeply familiar and uniquely yours.
 
-There are several ways of editing your application.
+Whether you're into Marvel movies, Kendrick Lamar, or Korean BBQ CultureClass builds a roadmap that reflects your cultural identity.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/cb189723-5b58-40be-b978-c66b4a3c95ec) and start prompting.
+### 🧠 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+* React + Vite + TypeScript
+* Tailwind CSS & shadcn/ui
+* OpenAI GPT-4 API
+* Qloo Taste API
+* Node.js (Express) for backend
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 💡 How It Works
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. User enters their tastes (e.g. favorite song, movie, book, food) + a topic to learn.
+2. App queries **Qloo Taste AI** for culturally similar entities.
+3. It sends a prompt combining Qloo insights + user preferences to GPT-4.
+4. GPT responds with a **step-by-step learning plan** that feels intuitive and personalized.
+5. User sees the path on a clean interactive UI.
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 🔧 Getting Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+#### Prerequisites
 
-# Step 3: Install the necessary dependencies.
-npm i
+* Node.js and npm installed
+* OpenAI API Key
+* Qloo API Key
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+#### Installation
+
+```bash
+git clone https://github.com/BhargavRam05/cultureclass-pathways-unlocked.git
+cd cultureclass-pathways-unlocked
+npm install
+```
+
+#### Running the app
+
+Frontend:
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Backend (in `/server` folder):
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+node index.js
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 🌍 Demo
 
-## What technologies are used for this project?
+* **Live Demo**: [https://cultureclass.vercel.app](https://your-deployed-link)
+* **Video Walkthrough**: [YouTube Demo](https://your-demo-video-link)
+* **Devpost Submission**: [Devpost Project Link](https://devpost.com/your-entry)
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### 📂 Folder Structure
 
-## How can I deploy this project?
+```
+cultureclass-pathways-unlocked/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── App.tsx
+├── server/
+│   └── index.js
+├── .env.example
+├── README.md
+└── package.json
+```
 
-Simply open [Lovable](https://lovable.dev/projects/cb189723-5b58-40be-b978-c66b4a3c95ec) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+### ✨ Inspiration
 
-Yes, you can!
+We wanted to make learning addictive. What if your learning journey could start with your **taste in music**? Or the **last movie you loved**? That’s the spark behind CultureClass.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### 🧪 Testing
+
+* Valid input flow with all fields filled
+* Handling empty input / null values
+* API failure fallback
+* Responsiveness on desktop and mobile
+
+---
+
+### 📜 License
+
+This project is submitted as part of the Qloo LLM Hackathon 2025. All rights reserved by the creators.
+
+---
+
+### 👨‍💻 Author
+
+* Bhargav Ram Buska
+  [Profile](https://a9acdcb7.your-online-persona-crafted.pages.dev/?fbclid=PAQ0xDSwLw2K1leHRuA2FlbQIxMQABpxhAAzmIe50c88E5Rf3bc_EnWR9J9Bd-FgQQVXJkO78NuMr757Y5K9j28GXo_aem_YMrYRXOy4kmNix5eFYPWuw) | [GitHub](https://github.com/BhargavRam05)
+
+---
+
